@@ -1,0 +1,22 @@
+{
+  "name": "js1k-2014",
+  "version": "0.0.0",
+  "description": "js1k-2014 =========",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ThibWeb/js1k-2014.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/ThibWeb/js1k-2014/issues"
+  },
+  "devDependencies": {
+    "gulp": "~3.5.2",
+    "gulp-js1k": "0.0.1"
+  }
+}
