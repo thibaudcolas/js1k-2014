@@ -1,22 +1,31 @@
 {
   "name": "js1k-2014",
   "version": "0.0.0",
-  "description": "js1k-2014 =========",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Demos built for JS1K 2014",
   "repository": {
     "type": "git",
     "url": "git://github.com/ThibWeb/js1k-2014.git"
   },
-  "author": "",
-  "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/ThibWeb/js1k-2014/issues"
-  },
+  "author": "ThibWeb",
+  "license": "MIT",
   "devDependencies": {
     "gulp": "~3.5.2",
-    "gulp-js1k": "0.0.1"
+    "gulp-js1k": "0.0.1",
+    "tiny-lr": "0.0.5",
+    "gulp": "~3.5.2",
+    "connect-livereload": "~0.3.2",
+    "express": "~3.4.8",
+    "open": "0.0.4",
+    "event-stream": "~3.1.0",
+    "gulp-csso": "~0.2.3",
+    "extend": "~1.2.1",
+    "gulp-uglify": "~0.2.1",
+    "amdefine": "~0.1.0",
+    "gulp-replace": "~0.2.0",
+    "gulp-jshint": "~1.4.2",
+    "jshint-stylish": "~0.1.5",
+    "requirejs": "~2.1.10",
+    "gulp-recess": "~0.2.0"
+
   }
 }
