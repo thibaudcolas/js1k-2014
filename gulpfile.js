@@ -44,7 +44,7 @@ gulp.task('watch', function () {
 
 // Print some stats (js1k elgibility), minify and output to "/submission/"
 gulp.task('build', function() {
-  gulp.src('original/*.js')
+  gulp.src('source/*.js')
       .pipe(js1k())
       .pipe(gulp.dest('build/'));
 });
