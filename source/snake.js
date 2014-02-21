@@ -1,9 +1,8 @@
 function equalCoordinates(c1, c2) {
-  return c1[0] === c2[0] && c1[1] === c2[1];
+  return c1[0] == c2[0] && c1[1] == c2[1];
 };
 
 var score;
-
 var timeout;
 var frameInterval;
 
@@ -38,7 +37,7 @@ function init() {
   snakePos = [[6, 4], [5, 4], [4, 4]];
 
   score = 0;
-  frameInterval = 100;
+  frameInterval = 99;
 
   // command();
 
@@ -88,7 +87,7 @@ function loop() {
   // isEatingApple(head)
   if (equalCoordinates(snakePos[0], applePos)) {
     // move([snakePos]);
-    applePos = [random(1, widthInBlocks - 2), random(1, heightInBlocks - 2)];
+    applePos = [random(widthInBlocks), random(heightInBlocks)];
     frameInterval *= 0.95;
     score++;
   }
@@ -100,43 +99,37 @@ function loop() {
   snakePos.forEach(function (p) {
     c.fillRect(block * p[0], block * p[1], block, block);
   });
-  // drawApple(c);
+  // drawScore(c, score);
+  c.fillText(score, width - 9, height - 9);
+    // drawApple(c);
   c.fillStyle = 'lime';
   c.beginPath();
   var radius = block / 2;
   // x, y, radius, startangle, endangle (radians), clockwise.
-  c.arc(applePos[0] * block + radius, applePos[1] * block + radius, radius, 0, Math.PI * 2, true);
+  c.arc(applePos[0] * block + radius, applePos[1] * block + radius, radius, 0, Math.PI * 2, 1);
   c.fill();
-  // drawScore(c, score);
-  c.font = 'bold 20px serif';
-  c.fillStyle = 'red';
-  c.fillText(score, width - 20, height - 20);
 
   // checkCollision()
   var head = snakePos[0];
   var snakeX = head[0];
   var snakeY = head[1];
-  var outsideHorizontalBounds = !snakeX || snakeX > widthInBlocks;
-  var outsideVerticalBounds = !snakeY || snakeY > heightInBlocks;
 
   // checkCoordinateInArray
-  var snakeCollision = false;
+  var snakeCollision = 0;
   snakePos.slice(1).forEach(function (item) {
 
     if (equalCoordinates(head, item)) {
-      snakeCollision = true;
+      snakeCollision = 1;
     }
   });
 
-  if (outsideHorizontalBounds || outsideVerticalBounds || snakeCollision) {
-  }
-  else {
+  if (!(!snakeX || snakeX > widthInBlocks || !snakeY || snakeY > heightInBlocks || snakeCollision)) {
     timeout = setTimeout(loop, frameInterval);
   }
 }
 
-function random(low, high) {
-  return Math.floor(Math.random() * (high - low + 1) + low);
+function random(high) {
+  return Math.floor(Math.random() * high) - 1;
 }
 
 init();
