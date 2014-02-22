@@ -4,7 +4,7 @@ var open = require('open');
 var express = require ('express');
 var lr = require('tiny-lr');
 var closure = require('gulp-closure-compiler');
-var js1k = require('gulp-js1k');
+var bytediff = require('gulp-bytediff');
 
 var server = lr();
 var app = express();
@@ -47,10 +47,11 @@ gulp.task('watch', function () {
 // Print some stats (js1k elgibility), minify and output to "/submission/"
 gulp.task('build', function() {
   return gulp.src('source/*.js')
+    .pipe(bytediff.start())
     .pipe(closure({
       compilation_level: "ADVANCED_OPTIMIZATIONS"
     }))
-    .pipe(js1k())
+    .pipe(bytediff.stop())
     .pipe(gulp.dest('build/'));
 });
 
