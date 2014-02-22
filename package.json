@@ -14,16 +14,6 @@
     "connect-livereload": "~0.3.2",
     "express": "~3.4.8",
     "open": "0.0.4",
-    "event-stream": "~3.1.0",
-    "gulp-csso": "~0.2.3",
-    "extend": "~1.2.1",
-    "gulp-uglify": "~0.2.1",
-    "amdefine": "~0.1.0",
-    "gulp-replace": "~0.2.0",
-    "gulp-jshint": "~1.4.2",
-    "jshint-stylish": "~0.1.5",
-    "requirejs": "~2.1.10",
-    "gulp-recess": "~0.2.0",
     "gulp-closure-compiler": "~0.1.2",
     "gulp-bytediff": "~0.1.8"
   }
