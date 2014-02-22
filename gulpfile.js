@@ -3,6 +3,7 @@ var path = require('path');
 var open = require('open');
 var express = require ('express');
 var lr = require('tiny-lr');
+var closure = require('gulp-closure-compiler');
 var js1k = require('gulp-js1k');
 
 var server = lr();
@@ -42,11 +43,15 @@ gulp.task('watch', function () {
   });
 });
 
+
 // Print some stats (js1k elgibility), minify and output to "/submission/"
 gulp.task('build', function() {
-  gulp.src('source/*.js')
-      .pipe(js1k())
-      .pipe(gulp.dest('build/'));
+  return gulp.src('source/*.js')
+    .pipe(closure({
+      compilation_level: "ADVANCED_OPTIMIZATIONS"
+    }))
+    .pipe(js1k())
+    .pipe(gulp.dest('build/'));
 });
 
 // Default developer working task.

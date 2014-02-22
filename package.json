@@ -12,7 +12,6 @@
     "gulp": "~3.5.2",
     "gulp-js1k": "0.0.1",
     "tiny-lr": "0.0.5",
-    "gulp": "~3.5.2",
     "connect-livereload": "~0.3.2",
     "express": "~3.4.8",
     "open": "0.0.4",
@@ -25,7 +24,7 @@
     "gulp-jshint": "~1.4.2",
     "jshint-stylish": "~0.1.5",
     "requirejs": "~2.1.10",
-    "gulp-recess": "~0.2.0"
-
+    "gulp-recess": "~0.2.0",
+    "gulp-closure-compiler": "~0.1.2"
   }
 }
