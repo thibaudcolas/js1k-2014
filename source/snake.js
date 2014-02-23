@@ -18,20 +18,6 @@ var nextDirection = direction;
 
 var applePos = [6, 6];
 
-var keysToDirections = {
-  37: 'l',
-  38: 'u',
-  39: 'r',
-  40: 'd'
-};
-
-var allowedDirections = {
-  l: ['u', 'd'],
-  r: ['u', 'd'],
-  u: ['l', 'r'],
-  d: ['l', 'r'],
-};
-
 function init() {
   direction = nextDirection = 'r';
   snakePos = [[6, 4], [5, 4], [4, 4]];
@@ -43,11 +29,11 @@ function init() {
 
   document.onkeydown = function (evt) {
     var key = evt.which;
-    var desiredDirection = keysToDirections[key];
+    var desiredDirection = {37: 'l', 38: 'u', 39: 'r', 40: 'd'}[key];
 
     if (desiredDirection) {
       // setDirection(direction);
-      if (allowedDirections[direction].indexOf(desiredDirection) !== -1) {
+      if ({l: ['u', 'd'], r: ['u', 'd'], u: ['l', 'r'], d: ['l', 'r']}[direction].indexOf(desiredDirection) !== -1) {
         nextDirection = desiredDirection;
       }
       evt.preventDefault();
@@ -62,7 +48,6 @@ function init() {
 }
 
 function loop() {
-  // Sets all pixels to black w/ 0 opacity.
   c.clearRect(0, 0, width, height);
   // advance();
   var nextPosition = snakePos[0].slice();
@@ -100,7 +85,8 @@ function loop() {
     c.fillRect(block * p[0], block * p[1], block, block);
   });
   // drawScore(c, score);
-  c.fillText(score, width - 9, height - 9);
+  c.font = 'bold 20px sans-serif';
+  c.fillText(score, width - 20, height - 20);
     // drawApple(c);
   c.fillStyle = 'lime';
   c.beginPath();
@@ -129,7 +115,7 @@ function loop() {
 }
 
 function random(high) {
-  return Math.floor(Math.random() * high) - 1;
+  return Math.floor(Math.random() * high + 1) - 1;
 }
 
 init();
