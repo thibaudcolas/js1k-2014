@@ -5,6 +5,7 @@ var express = require ('express');
 var lr = require('tiny-lr');
 var closure = require('gulp-closure-compiler');
 var bytediff = require('gulp-bytediff');
+var micro = require('gulp-micro');
 
 var server = lr();
 var app = express();
@@ -48,9 +49,8 @@ gulp.task('watch', function () {
 gulp.task('build', function() {
   return gulp.src('source/*.js')
     .pipe(bytediff.start())
-    .pipe(closure({
-      compilation_level: "ADVANCED_OPTIMIZATIONS"
-    }))
+    .pipe(closure({compilation_level: 'ADVANCED_OPTIMIZATIONS'}))
+    .pipe(micro({limit: 1024}))
     .pipe(bytediff.stop())
     .pipe(gulp.dest('build/'));
 });

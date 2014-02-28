@@ -15,6 +15,7 @@
     "express": "~3.4.8",
     "open": "0.0.4",
     "gulp-closure-compiler": "~0.1.2",
-    "gulp-bytediff": "~0.1.8"
+    "gulp-bytediff": "~0.1.8",
+    "gulp-micro": "~0.1.2"
   }
 }
