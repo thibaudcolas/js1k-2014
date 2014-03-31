@@ -3,60 +3,73 @@ var mouseDown = false;
 var positions = [];
 var X = Y = x = y = 0;
 
-var colors = [
-  '#A2659D',
-  '#76B0C2',
-  '#C7D38D',
-  '#F09D61',
-  '#EC5954'
-];
+var M = Math;
 
+var score = 0;
 
-  // create radial gradient
-  var grd = c.createRadialGradient(0, 0, 0, 0, 0, a.width + a.height);
-  grd.addColorStop(0, colors[1]);
-  grd.addColorStop(0.5, '#1E80C2');
-  grd.addColorStop(1, 'transparent');
+var circles = [];
 
-onmouseup = function (e) {
-  mouseDown = false;
-  e.preventDefault();
-};
+// create radial gradient
+var grd = c.createRadialGradient(0, 0, 0, 0, 0, a.width + a.height);
+grd.addColorStop(0, '#76B0C2');
+grd.addColorStop(.2, '#1E80C2');
+grd.addColorStop(1, 'transparent');
 
-onmousedown = function (e) {
-  mouseDown = true;
-  e.preventDefault();
-};
+c.globalAlpha = 0.7;
+
+function rand(low, high) {
+  high -= low - 1;
+  return M.floor(M.random() * high + low);
+}
 
 onmousemove = function (e) {
-  if (mouseDown) {
-    x = e.pageX;
-    y = e.pageY;
-    // Curve smoothing.
-    X = X + (x - X) / 30;
-    Y += (y - Y) / 30;
-    positions.push([X, Y]);
-  }
+  x = e.pageX;
+  y = e.pageY;
 };
 
 function loop() {
   timer++;
-  c.globalAlpha = 0.8 / (1 + positions.length / 100);
-  //c.globalCompositeOperation = 'xor';
 
-  background();
+  X = X + (x - X) / 20;
+  Y += (y - Y) / 20;
+  if (positions.length < 50) {
+    positions.push([X, Y]);
+  }
+
+  drawBackground();
 
   drawLine();
 
+  if (timer % 100 === 0 && circles.length < 10) {
+    circles.push([rand(9, a.width), rand(9, a.height), rand (10, 50)]);
+  }
+
+  for (var i = 0; i < circles.length; i++) {
+    if (M.sqrt((X-circles[i][0])*(X-circles[i][0]) + (Y-circles[i][1])*(Y-circles[i][1])) < circles[i][2]) {
+      circles.splice(i, 1);
+      score+=i;
+    }
+  }
+
+  drawCircles();
 
   window.requestAnimationFrame(loop, a);
 }
 
-function background() {
-
+function drawBackground() {
   c.fillStyle = grd;
-  c.arc(0, 0, a.width + a.height, 0, 2 * Math.PI);
+  c.arc(0, 0, a.width + a.height, 0, 2 * M.PI);
   c.fill();
+}
+
+function drawCircles() {
+  for (var i= 0; i < circles.length; i++) {
+    c.strokeStyle = 'tomato';
+    c.beginPath();
+    c.arc(M.cos(timer/12) * 3 + circles[i][0], M.sin(timer/12) * 3 + circles[i][1], circles[i][2], 0, M.PI*2, true);
+    c.closePath();
+    c.stroke();
+  }
 }
 
 function drawLine() {
@@ -65,14 +78,15 @@ function drawLine() {
   }
 
   c.lineWidth = 5;
-  c.strokeStyle = colors[4];
+  c.strokeStyle = '#EC5954';
   for (var i= 0; i < positions.length - 1; i++) {
     c.beginPath();
-    c.moveTo(positions[i][0], positions[i][1]);
-    c.lineTo(positions[i+1][0], positions[i+1][1]);
+    c.moveTo(positions[i][0], M.cos(-i + timer/12) * 2 - (positions[i][1]-positions[i][1])/9 + positions[i][1] - 9);
+    c.lineTo(positions[i+1][0], M.cos(-i + timer/12) * 2 - (positions[i+1][1]-positions[i][1])/9 + positions[i+1][1] - 9);
     c.stroke();
     c.closePath();
   }
 }
 
 loop();
+
