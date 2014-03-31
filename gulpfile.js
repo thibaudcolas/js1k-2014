@@ -50,7 +50,6 @@ gulp.task('build', function() {
   return gulp.src('source/*.js')
     .pipe(bytediff.start())
     .pipe(closure({compilation_level: 'ADVANCED_OPTIMIZATIONS'}))
-    .pipe(micro({limit: 1024}))
     .pipe(bytediff.stop())
     .pipe(gulp.dest('build/'));
 });
