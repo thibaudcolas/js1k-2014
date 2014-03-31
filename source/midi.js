@@ -1,18 +1,18 @@
-var timer = 0;
-var mouseDown = false;
+var timer = smoothTimer = 0;
 var positions = [];
-var X = Y = x = y = 0;
+var X = Y = x = y = score = 0;
+var w = w;
+var h = a.height;
 
 var M = Math;
 
-var score = 0;
+for (e in c) c[e[0]+e[2]+(e[6]||'')] = c[e];
 
 var circles = [];
 
 // create radial gradient
-var grd = c.createRadialGradient(0, 0, 0, 0, 0, a.width + a.height);
-grd.addColorStop(0, '#76B0C2');
-grd.addColorStop(.2, '#1E80C2');
+var grd = c.ceR(0, 0, 0, 0, 0, w + a.height);
+grd.addColorStop(0, '#1E80C2');
 grd.addColorStop(1, 'transparent');
 
 c.globalAlpha = 0.7;
@@ -29,8 +29,9 @@ onmousemove = function (e) {
 
 function loop() {
   timer++;
+  smoothTimer = timer / 9;
 
-  X = X + (x - X) / 20;
+  X += (x - X) / 20;
   Y += (y - Y) / 20;
   if (positions.length < 50) {
     positions.push([X, Y]);
@@ -40,8 +41,8 @@ function loop() {
 
   drawLine();
 
-  if (timer % 100 === 0 && circles.length < 10) {
-    circles.push([rand(9, a.width), rand(9, a.height), rand (10, 50)]);
+  if (timer % 99 == 0 && circles.length < 9) {
+    circles.push([rand(9, w), rand(9, a.height), rand (9, 50)]);
   }
 
   for (var i = 0; i < circles.length; i++) {
@@ -60,39 +61,39 @@ function loop() {
 
 function drawBackground() {
   c.fillStyle = grd;
-  c.arc(0, 0, a.width + a.height, 0, 2 * M.PI);
-  c.fill();
+  c.arc(0, 0, w + a.height, 0, 2 * M.PI);
+  c.fl();
 }
 
 function drawScore() {
-  c.font = '30pt Calibri';
+  c.font = '30pt';
   c.fillStyle = '#fff';
-  c.fillText(score, a.width - 50, a.height - 30);
+  c.flx(score, w - 50, a.height - 30);
 }
 
 function drawCircles() {
   for (var i= 0; i < circles.length; i++) {
     c.strokeStyle = 'tomato';
-    c.beginPath();
-    c.arc(M.cos(timer/12) * 3 + circles[i][0], M.sin(timer/12) * 3 + circles[i][1], circles[i][2], 0, M.PI*2, true);
-    c.closePath();
-    c.stroke();
+    c.bga();
+    c.arc(M.cos(smoothTimer) * 3 + circles[i][0], M.sin(smoothTimer) * 3 + circles[i][1], circles[i][2], 0, M.PI*2, true);
+    c.coa();
+    c.sr();
   }
 }
 
 function drawLine() {
-  if (timer % 2 === 0) {
+  if (timer % 2 == 0) {
     positions.shift();
   }
 
   c.lineWidth = 5;
   c.strokeStyle = '#EC5954';
   for (var i= 0; i < positions.length - 1; i++) {
-    c.beginPath();
-    c.moveTo(positions[i][0], M.cos(-i + timer/12) * 2 - (positions[i][1]-positions[i][1])/9 + positions[i][1] - 9);
-    c.lineTo(positions[i+1][0], M.cos(-i + timer/12) * 2 - (positions[i+1][1]-positions[i][1])/9 + positions[i+1][1] - 9);
-    c.stroke();
-    c.closePath();
+    c.bga();
+    c.mv(positions[i][0], M.cos(-i + smoothTimer) * 2 - (positions[i][1]-positions[i][1])/9 + positions[i][1] - 9);
+    c.ln(positions[i+1][0], M.cos(-i + smoothTimer) * 2 - (positions[i+1][1]-positions[i][1])/9 + positions[i+1][1] - 9);
+    c.sr();
+    c.coa();
   }
 }
 
