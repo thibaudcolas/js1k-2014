@@ -1,3 +1,5 @@
+t = x = y = X = Y = 0;
+
 function drawPath(from, to) {
   c.lineWidth = 20;
   c.beginPath();
@@ -13,13 +15,31 @@ function rand(low, high) {
 }
 
 function loop(p1, p2, depth) {
-  //drawPath({x: rand(50), y: rand(50)}, {x: rand(a.width), y: rand(a.height)});
+  t++;
   updateRain();
   updateRoof();
 
   c.clearRect(0, 0, a.width, a.height);
-  drawRain();
-  drawRoof();
+
+  c.beginPath();
+  var rad = c.createRadialGradient(0, 0, 1, 0, 0, 999);
+  rad.addColorStop(0, '#811');
+  rad.addColorStop(1, 'transparent');
+  c.fillStyle = rad;
+  c.arc(0, 0, a.width + a.height, 0, Math.PI*2, false);
+  c.fill();
+
+  // c.beginPath();
+  // var rad = c.createRadialGradient(X, Y, 1, X, Y, 50);
+  // rad.addColorStop(0, 'tomato');
+  // rad.addColorStop(1, 'transparent');
+  // c.fillStyle = rad;
+  // c.arc(X, Y, 30, 0, Math.PI*2, false);
+  // c.fill();
+
+
+  //drawRain();
+  //drawRoof();
 
   window.requestAnimationFrame(loop, a);
 }
@@ -35,8 +55,12 @@ onmousedown = function (e) {
 };
 
 onmousemove = function (e) {
+  x = e.clientX;
+  y = e.clientY;
+  X += (x-X)/30;
+  Y += (y-Y)/30;
   if (mouseDown) {
-    roof.push([e.clientX, e.clientY]);
+    roof.push([X, Y, rand(0, 9) > 7]);
   }
 };
 
@@ -51,7 +75,7 @@ function updateRain() {
 
 function drawRain() {
   c.lineWidth = 1;
-  c.strokeStyle = 'blue';
+  c.strokeStyle = '#BEF';
   rain.forEach(function (r) {
     c.beginPath();
     c.moveTo(r, 0);
@@ -70,7 +94,7 @@ function updateRoof() {
 
 function drawRoof() {
   c.lineWidth = 3;
-  c.strokeStyle = 'brown';
+  c.strokeStyle = 'red';
   for (var i= 0; i < roof.length - 1; i++) {
     c.beginPath();
     c.moveTo(roof[i][0], roof[i][1]);
@@ -81,14 +105,6 @@ function drawRoof() {
 }
 
 var rain = [
-  rainStart(),
-  rainStart(),
-  rainStart(),
-  rainStart(),
-  rainStart(),
-  rainStart(),
-  rainStart(),
-  rainStart(),
   rainStart(),
   rainStart(),
   rainStart(),
@@ -107,6 +123,7 @@ var timer = 0;
 lastPosition = [10, 10];
 c.lineCap = 'round';
 mouseDown = false;
-a.style.backgroundColor='#112';
+c.globalAlpha = .8/3;
+a.style.backgroundColor='#BEF';
 
 loop();
