@@ -49,7 +49,10 @@ gulp.task('watch', function () {
 gulp.task('build', function() {
   return gulp.src('source/*.js')
     .pipe(bytediff.start())
-    .pipe(closure({compilation_level: 'ADVANCED_OPTIMIZATIONS'}))
+    .pipe(closure({
+      compilation_level: 'ADVANCED_OPTIMIZATIONS',
+      externs: 'js1k-externs.js'
+    }))
     .pipe(micro({limit: 1024}))
     .pipe(bytediff.stop())
     .pipe(gulp.dest('build/'));

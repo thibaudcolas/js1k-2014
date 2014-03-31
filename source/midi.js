@@ -40,7 +40,7 @@ function loop() {
   }
 
   c.fillStyle = grd;
-  c.arc(0, 0, w + h, 0, 2 * M.PI);
+  c.arc(0, 0, w + h, 0, 7);
   c.fl();
 
   drawLine();
@@ -69,7 +69,7 @@ function drawCircles() {
   for (var i= 0; i < circles.length; i++) {
     c.strokeStyle = 'tomato';
     c.bga();
-    c.arc(M.cos(s) * 3 + circles[i][0], M.sin(s) * 3 + circles[i][1], circles[i][2], 0, M.PI*2, true);
+    c.arc(M.cos(s) * 3 + circles[i][0], M.sin(s) * 3 + circles[i][1], circles[i][2], 0, 7);
     c.coa();
     c.sr();
   }
