@@ -18,7 +18,7 @@ grd.addColorStop(0, '#1E80C2');
 grd.addColorStop(1, 'transparent');
 
 function rand(high) {
-  return M.random() * (high - 9) + 9;
+  return M.random() * (high - 40) + 20;
 }
 
 onmousemove = function (e) {
@@ -52,7 +52,7 @@ function loop() {
 
     // Draw slicer.
     lineWidth = 5;
-    strokeStyle = '#EC5954';
+    strokeStyle = 'hsl(' + rand(positions.length) + ',90%,50%)';
     for (var i= 0; i < positions.length - 1; i++) {
       bga();
       mv(positions[i][0], M.cos(-i + s) * 2 - (positions[i][1]-positions[i][1])/9 + positions[i][1] - 9);
@@ -62,14 +62,14 @@ function loop() {
     }
 
     // Pop circles.
-    if (t % 70 == 0) {
-      circles.push([rand(w), rand(h), rand(50), rand(160)]);
+    if (t % 50 == 0) {
+      circles.push([rand(w), rand(h), rand(80), rand(200)]);
     }
 
     for (var i = 0; i < circles.length; i++) {
       C = circles[i];
       // Draw circles.
-      strokeStyle = C[2] > 40 ? 'black' : 'hsl(' + C[3] + ',90%,50%)';
+      strokeStyle = C[2] > 50 ? 'black' : 'hsl(' + C[3] + ',90%,50%)';
       bga();
       arc(M.cos(s) * 3 + C[0], M.sin(s) * 3 + C[1], C[2], 0, 7);
       coa();
@@ -79,13 +79,12 @@ function loop() {
       if (M.sqrt((X-C[0])*(X-C[0]) + (Y-C[1])*(Y-C[1])) < C[2]) {
         circles.splice(i, 1);
         p++;
-        if (C[2] > 40) {
+        if (C[2] > 50) {
           p = 0;
           positions = [];
         }
       }
     }
-
 
     font = '30px arial';
     fillStyle = '#fff';
