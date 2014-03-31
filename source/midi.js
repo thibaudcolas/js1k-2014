@@ -47,11 +47,13 @@ function loop() {
   for (var i = 0; i < circles.length; i++) {
     if (M.sqrt((X-circles[i][0])*(X-circles[i][0]) + (Y-circles[i][1])*(Y-circles[i][1])) < circles[i][2]) {
       circles.splice(i, 1);
-      score+=i;
+      score++;
     }
   }
 
   drawCircles();
+
+  drawScore();
 
   window.requestAnimationFrame(loop, a);
 }
@@ -60,6 +62,12 @@ function drawBackground() {
   c.fillStyle = grd;
   c.arc(0, 0, a.width + a.height, 0, 2 * M.PI);
   c.fill();
+}
+
+function drawScore() {
+  c.font = '30pt Calibri';
+  c.fillStyle = '#fff';
+  c.fillText(score, a.width - 50, a.height - 30);
 }
 
 function drawCircles() {
