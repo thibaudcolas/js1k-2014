@@ -3,9 +3,9 @@
   "description": "Demos built for JS1K 2014",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ThibWeb/js1k-2014.git"
+    "url": "git://github.com/thibaudcolas/js1k-2014.git"
   },
-  "author": "ThibWeb",
+  "author": "thibaudcolas",
   "license": "MIT",
   "devDependencies": {
     "gulp": "~3.5.2",
